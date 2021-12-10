@@ -1,0 +1,23 @@
+// ### Primary
+$primary_dark_blue_signup: hsl(221, 31%, 25%);
+$primary_dark_blue_main: hsl(219, 26%, 22%);
+$primary_dark_blue_light: hsl(211, 36%, 19%);
+$primary_dark_blue_lighter: hsl(221, 25%, 35%);
+
+// ### Accent
+$accent_cyan_cta: hsl(176, 68%, 64%);
+$accent_blue_cta: hsl(198, 60%, 50%);
+$accent_light_red: hsl(0, 100%, 63%);
+
+// ### Neutral
+$neutral_white: hsl(0, 8%, 95%);
+
+//device width
+/*device with as per chrome Mobile Device*/
+$mobile_sm: 320px;
+$mobile_md: 375px;
+$mobile_lg: 425px;
+$tablet: 768px;
+$laptop: 1024px;
+$laptop_lg: 1440px;
+$mac_4k: 2560px;

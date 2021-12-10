@@ -1,0 +1,10 @@
+****frontend****
+
+npx create-react-app frontend
+npm i axios jwt-decode moment node-sass react-hot-toast react-icons react-alert react-alert-template-basic react-redux redux redux-thunk react-router-dom socket.io-client 
+
+
+*** backend plugins ****
+****backend plugins for messenger****
+npm init -y
+npm i bcrypt body-parser concurrently cookie-parser dotenv express formidable jsonwebtoken mongoose nodemon validator

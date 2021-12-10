@@ -1,0 +1,104 @@
+.register {
+       background: $neutral_white;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+
+       .card {
+              display: flex;
+              flex-direction: column;
+              background: $primary_dark_blue_main;
+              color: $neutral_white;
+              border-radius: 10px;
+              box-shadow: -1px -1px 5px $primary_dark_blue_lighter;
+              min-width: 100%;
+              @media (min-width: $mobile_lg) {
+                     min-width: $mobile_lg;
+              }
+              @media (min-width: $laptop) {
+                     min-width: $mobile_lg;
+              }
+              .card__header {
+                     text-align: center;
+                     padding: 20px 0 0;
+              }
+              .card__body {
+                     padding: 20px 0;
+                     .form {
+                            &__group {
+                                   padding: 0 20px;
+                                   display: flex;
+                                   flex-direction: column;
+                                   label {
+                                          padding: 15px 0px 5px;
+                                          font-size: 0.8rem;
+                                          font-weight: 400;
+                                          text-transform: uppercase;
+                                   }
+                                   input {
+                                          border-radius: 5px;
+                                          border: none;
+                                          height: 45px;
+                                          font-size: 1rem;
+                                          width: 100%;
+                                          padding: 0 10px;
+                                          outline: none;
+                                          transition: all 0.1s ease-in;
+                                          &:focus-within {
+                                                 border-bottom: 5px solid $accent_blue_cta;
+                                                 transition: all 0.1s ease-in-out;
+                                          }
+                                   }
+                                   .link {
+                                          text-align: center;
+                                          color: $neutral_white;
+                                          padding: 20px 0 0;
+                                   }
+                                   .btn--submit {
+                                          color: $neutral_white;
+                                          font-weight: 700;
+                                          background: $primary_dark_blue_lighter;
+                                          cursor: pointer;
+                                   }
+                            }
+
+                            .form__group--files {
+                                   display: flex;
+                                   flex-direction: row;
+
+                                   padding: 20px 20px;
+
+                                   justify-content: flex-start;
+                                   align-items: center;
+
+                                   .image {
+                                          width: 50px;
+                                          height: 50px;
+                                          border-radius: 50px;
+                                   }
+                                   .file {
+                                          display: flex;
+                                          flex-direction: row;
+                                          border: 1px solid $accent_blue_cta;
+                                          border-radius: 50px;
+                                          justify-content: center;
+                                          align-items: center;
+                                          text-align: center;
+                                          margin-left: 10px;
+
+                                          label {
+                                                 width: 100% !important;
+                                                 padding: 10px 20px;
+                                                 cursor: pointer;
+                                          }
+                                          #files {
+                                                 position: absolute;
+                                                 visibility: hidden;
+                                          }
+                                   }
+                            }
+                     }
+              }
+       }
+}
