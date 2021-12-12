@@ -43,7 +43,7 @@ const userRegisterController = async (req, res, next) => {
       try {
         const checkUserExists = await User.findOne({ email: email });
         if (checkUserExists) {
-          res.status(201).json({
+          res.status(500).json({
             error: {
               errorMessage:
                 'User already exists, please try with another email',
@@ -55,6 +55,7 @@ const userRegisterController = async (req, res, next) => {
             newImageUploadingPath,
             async (error) => {
               if (!error) {
+                //insert a user in mongodb database using create User.create
                 const createNewUser = await User.create({
                   username,
                   email,
@@ -84,10 +85,10 @@ const userRegisterController = async (req, res, next) => {
                       1000
                   ),
                 };
-                res
-                  .status(201)
-                  .cookie('authToken', token, options)
-                  .json({ message: 'User Registration Successfull', token });
+                res.status(201).cookie('authToken', token, options).json({
+                  successMessage: 'User Registration Successfull',
+                  token,
+                });
               } else {
                 res.status(500).json({
                   error: {
