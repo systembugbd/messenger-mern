@@ -1,4 +1,9 @@
-import { REGISTER_FAIL, REGISTER_SUCCESS } from '../types/type';
+import {
+  ERROR_MESSAGE_CLEAR,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  SUCCESS_MESSAGE_CLEAR,
+} from '../types/type';
 import jwtDecodeToken from 'jwt-decode';
 
 const authState = {
@@ -18,29 +23,55 @@ const tokenDecode = (token) => {
   return tokenDecoded;
 };
 
+const authToken = localStorage.getItem('authToken');
+if (authToken) {
+  const userInfoTokenDecoded = tokenDecode(authToken);
+  if (userInfoTokenDecoded) {
+    authState.userInfo = userInfoTokenDecoded;
+    authState.authenticated = authState.successMessage ? true : false;
+    authState.loading = false;
+  }
+}
+
 export const authReducer = (state = authState, action) => {
   const { payload, type } = action;
-
-  if (type === REGISTER_FAIL) {
-    return {
-      ...state,
-      error: payload.error,
-      loading: true,
-      authenticated: false,
-      successMessage: '',
-      userInfo: '',
-    };
-  }
-  if (type === REGISTER_SUCCESS) {
-    const userInfoToken = tokenDecode(payload.token);
-    return {
-      ...state,
-      loading: false,
-      authenticated: true,
-      error: '',
-      successMessage: payload.successMessage,
-      userInfo: userInfoToken,
-    };
+  try {
+    if (type === REGISTER_FAIL) {
+      return {
+        ...state,
+        error: payload.error,
+        loading: true,
+        authenticated: false,
+        successMessage: '',
+        userInfo: '',
+      };
+    }
+    if (type === REGISTER_SUCCESS) {
+      const userInfoToken = tokenDecode(payload.token);
+      return {
+        ...state,
+        loading: false,
+        authenticated: true,
+        error: '',
+        successMessage: payload.successMessage,
+        userInfo: userInfoToken,
+      };
+    }
+    if (type === SUCCESS_MESSAGE_CLEAR) {
+      return {
+        ...state,
+        successMessage: '',
+        authenticated: false,
+      };
+    }
+    if (type === ERROR_MESSAGE_CLEAR) {
+      return {
+        ...state,
+        error: '',
+      };
+    }
+  } catch (error) {
+    console.error('I m from authReducers', error);
   }
 
   return state;

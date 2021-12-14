@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActionRegisterPost } from './../store/actions/authAction';
-
+import { useAlert } from 'react-alert';
+import { useNavigate } from 'react-router-dom';
+import {
+  SUCCESS_MESSAGE_CLEAR,
+  ERROR_MESSAGE_CLEAR,
+} from '../store/types/type';
 function Register() {
+  //to dispass a task to reducer function
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  //to alert()
+  const alert = useAlert();
+  const { loading, authenticated, error, successMessage, userInfo } =
+    useSelector((state) => state.auth);
 
+  // console.log(userInfo);
   const [state, setState] = useState({
     username: '',
     email: '',
@@ -60,6 +72,39 @@ function Register() {
     //dispatch formData to authActionRegisterPost action controller
     dispatch(authActionRegisterPost(formData));
   };
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate('/messenger/login');
+    }
+    if (successMessage) {
+      alert.success(successMessage);
+      alert.show('You are being redirecting...');
+      setTimeout(() => {
+        dispatch({
+          type: SUCCESS_MESSAGE_CLEAR,
+        });
+      }, 5000);
+
+      return alert;
+    }
+
+    if (error) {
+      error.map((err) => alert.error(err));
+      setTimeout(() => {
+        dispatch({
+          type: ERROR_MESSAGE_CLEAR,
+        });
+      }, 5000);
+      return alert;
+    }
+    setTimeout(() => {
+      if (successMessage) {
+        alert.remove(alert);
+      }
+      alert.removeAll();
+    }, 1000);
+  }, [successMessage, error, alert]);
 
   return (
     <div className="register">

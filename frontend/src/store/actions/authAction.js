@@ -22,10 +22,14 @@ export const authActionRegisterPost = (data) => {
         },
       });
     } catch (error) {
-      const errorMessage = error.response.data.error.errorMessage;
+      const errorMessages =
+        typeof error.response.data.error === 'object'
+          ? error.response.data.error.errorMessage
+          : [];
+
       dispatch({
         type: REGISTER_FAIL,
-        payload: { error: errorMessage },
+        payload: { error: errorMessages },
       });
       // console.log(error.response.data);
     }

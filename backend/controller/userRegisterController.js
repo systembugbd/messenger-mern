@@ -43,10 +43,11 @@ const userRegisterController = async (req, res, next) => {
       try {
         const checkUserExists = await User.findOne({ email: email });
         if (checkUserExists) {
-          res.status(500).json({
+          res.status(403).json({
             error: {
-              errorMessage:
+              errorMessage: [
                 'User already exists, please try with another email',
+              ],
             },
           });
         } else {
