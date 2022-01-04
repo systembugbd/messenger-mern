@@ -13,6 +13,7 @@ const userRegisterSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Password is required'],
+      select: false,
     },
     image: {
       type: String,

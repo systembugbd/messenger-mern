@@ -4,19 +4,19 @@ const ValidateReg = async (fields, files) => {
   try {
     const error = [];
     const { username, email, password, confirmPassword } = fields;
-    if (username == '') {
+    if (!username) {
       error.push('Username is required');
     }
-    if (email == '') {
+    if (!email) {
       error.push('Email is required');
     }
     if (email && !validator.isEmail(email)) {
       error.push('Email is not valid, Please provide a valid email');
     }
-    if (password == '') {
+    if (!password) {
       error.push('Password is required');
     }
-    if (confirmPassword == '') {
+    if (!confirmPassword) {
       error.push('Confirm Password is required');
     }
     if (confirmPassword && confirmPassword !== password) {
@@ -30,4 +30,25 @@ const ValidateReg = async (fields, files) => {
     return e;
   }
 };
-module.exports = ValidateReg;
+
+const validateLogin = async (email, password) => {
+  try {
+    const error = [];
+    if (!email) {
+      error.push('Email is required');
+    }
+    if (!password) {
+      error.push('Password is required');
+    }
+    if (email && !validator.isEmail(email)) {
+      error.push('Please enter a valid email');
+    }
+    return error;
+  } catch (e) {
+    return e;
+  }
+};
+module.exports = {
+  ValidateReg,
+  validateLogin,
+};

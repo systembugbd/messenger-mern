@@ -11,6 +11,9 @@ function Login() {
     setPassword(e.target.value);
   };
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="login">
       <div className="card">
@@ -18,7 +21,7 @@ function Login() {
           <h3>Register</h3>
         </div>
         <div className="card__body">
-          <form className="form">
+          <form className="form" onSubmit={handleLogin}>
             <div className="form__group">
               <label htmlFor="username">Username</label>
               <input

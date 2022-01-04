@@ -5,7 +5,9 @@ import {
   SUCCESS_MESSAGE_CLEAR,
 } from '../types/type';
 import jwtDecodeToken from 'jwt-decode';
-
+/**
+ * Define Auth State
+ */
 const authState = {
   loading: true,
   authenticated: false,
@@ -13,7 +15,11 @@ const authState = {
   successMessage: '',
   userInfo: '',
 };
-
+/**
+ * Decode JWT Token
+ * @param {string} token
+ * @returns token Decoded or null
+ */
 const tokenDecode = (token) => {
   const tokenDecoded = jwtDecodeToken(token);
   const expireDate = new Date(tokenDecoded.exp * 1000);
@@ -22,7 +28,9 @@ const tokenDecode = (token) => {
   }
   return tokenDecoded;
 };
-
+/**
+ * get Local Storate token and set to authState
+ */
 const authToken = localStorage.getItem('authToken');
 if (authToken) {
   const userInfoTokenDecoded = tokenDecode(authToken);
@@ -32,7 +40,12 @@ if (authToken) {
     authState.loading = false;
   }
 }
-
+/**
+ *
+ * @param {Object} state
+ * @param {event} action
+ * @returns
+ */
 export const authReducer = (state = authState, action) => {
   const { payload, type } = action;
   try {

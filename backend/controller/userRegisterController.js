@@ -5,7 +5,7 @@ const fs = require('fs');
 const User = require('../models/userRegisterSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const ValidateReg = require('../utils/custom_validator');
+const { ValidateReg } = require('../utils/custom_validator');
 
 //User Registration Image Uploading and Token Generator and Response back to
 /**
@@ -22,7 +22,7 @@ const userRegisterController = async (req, res, next) => {
 
     const error = await ValidateReg(fields, files);
 
-    console.log(error);
+    // console.log(error);
     //Check is there is any error inside in error array if yes then send res 400
     if (error.length > 0) {
       res.status(400).json({ error: { errorMessage: error } });
