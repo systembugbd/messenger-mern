@@ -79,7 +79,7 @@ function Register() {
     }
     if (successMessage) {
       alert.success(successMessage);
-      alert.show('You are being redirecting...');
+      alert.show('Redirecting to login page...');
       setTimeout(() => {
         dispatch({
           type: SUCCESS_MESSAGE_CLEAR,

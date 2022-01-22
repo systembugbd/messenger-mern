@@ -1,5 +1,7 @@
 import {
   ERROR_MESSAGE_CLEAR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   SUCCESS_MESSAGE_CLEAR,
@@ -32,11 +34,13 @@ const tokenDecode = (token) => {
  * get Local Storate token and set to authState
  */
 const authToken = localStorage.getItem('authToken');
+const successMessage = localStorage.getItem('successMessage');
 if (authToken) {
   const userInfoTokenDecoded = tokenDecode(authToken);
   if (userInfoTokenDecoded) {
     authState.userInfo = userInfoTokenDecoded;
-    authState.authenticated = authState.successMessage ? true : false;
+    authState.authenticated = successMessage ? true : false;
+    authState.successMessage = successMessage ?? '';
     authState.loading = false;
   }
 }
@@ -49,7 +53,7 @@ if (authToken) {
 export const authReducer = (state = authState, action) => {
   const { payload, type } = action;
   try {
-    if (type === REGISTER_FAIL) {
+    if (type === REGISTER_FAIL || type === LOGIN_FAIL) {
       return {
         ...state,
         error: payload.error,
@@ -59,7 +63,7 @@ export const authReducer = (state = authState, action) => {
         userInfo: '',
       };
     }
-    if (type === REGISTER_SUCCESS) {
+    if (type === REGISTER_SUCCESS || type === LOGIN_SUCCESS) {
       const userInfoToken = tokenDecode(payload.token);
       return {
         ...state,
@@ -74,7 +78,7 @@ export const authReducer = (state = authState, action) => {
       return {
         ...state,
         successMessage: '',
-        authenticated: false,
+        authenticated: true,
       };
     }
     if (type === ERROR_MESSAGE_CLEAR) {

@@ -53,16 +53,20 @@ const userLoginController = async (req, res, next) => {
           });
         } else {
           res.status(404).json({
-            error: { errorMessage: 'Invalid Password, Please Check Password' },
+            error: {
+              errorMessage: ['Invalid Password, Please Check Password'],
+            },
           });
         }
       } else {
         res.status(404).json({
-          error: { errorMessage: 'User not found, Please check Email Address' },
+          error: {
+            errorMessage: ['User not found, Please check Email Address'],
+          },
         });
       }
     } catch (error) {
-      res.status(500).json({ error: { errorMessage: error.message } });
+      res.status(500).json({ error: { errorMessage: [error] } });
     }
   }
 };
